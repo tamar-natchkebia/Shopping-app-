@@ -17,14 +17,14 @@ function Login() {
     setError("");
 
     try {
-      const res = await axios.post("https://warrior.ge/api/login", {
+      const res = await axios.post("https://warrior.ge/api/login", { 
         email,
         password,
       });
 
       // Example: API returns { name, email }
-      login(res.data);
-      navigate("/");
+      login(res.data); // if we dont store the date  we will be logged out on refresh
+      navigate("/"); // Redirect to home after login
     } catch (err) {
       setError("Login failed. Check your credentials.");
     }

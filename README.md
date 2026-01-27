@@ -1,87 +1,74 @@
-Shopping App
+# MaisonMart 🛍️
 
-A modern, React-based shopping application that allows users to browse products, add items to their cart or wishlist, and complete purchases securely. The app features multiple payment options, a clean UI, and a seamless shopping experience.
+MaisonMart is a modern shopping web application built with React that allows users to browse products, explore categories, manage a cart and wishlist, and authenticate users using a real external API.
 
-Features
+The app focuses on clean UI, smooth navigation, and a realistic e-commerce experience.
 
-Browse a wide range of products with details and images
+---
 
-Add products to Cart and Wishlist
+## 🚀 Live Demo
+👉 https://YOUR-NETLIFY-URL.netlify.app
 
-Update item quantities and remove items easily
+---
 
-Multiple payment options (Credit Card, PayPal, etc.)
+## ✨ Features
 
-Order tracking and status updates
+- Browse products and product details
+- View and explore product categories
+- Add/remove items from cart
+- Wishlist functionality
+- User authentication (login & signup)
+- Responsive navigation bar with cart & wishlist counters
+- FAQ section and full footer
+- Clean and modern UI with Tailwind CSS
 
-Responsive and user-friendly interface
+---
 
-Secure checkout and user authentication
+## 🖼️ Screenshots
 
-Tech Stack
+### Home Page
+![Home](src/screenshots/home.png)
 
-Frontend: React, Axios, Tailwind CSS
+### Purchase / Products Page
+![Purchase](src/screenshots/purchase.png)
 
-Backend: (Optional – if you have one) Node.js / Express / MongoDB or any REST API
+### Checkout / Cart Page
+![Checkout](src/screenshots/checkout.png)
 
-Routing: React Router
+---
 
-State Management: React Context API
+## 🛠 Tech Stack
 
-Installation
+- React
+- React Router
+- Axios
+- Context API
+- Tailwind CSS
+- Vite
+- External REST API (EscuelaJS)
+
+---
+
+## 🔌 API Used
+
+This project uses the **EscuelaJS Fake Store API**:
+
+- https://api.escuelajs.co/api/v1
+
+Endpoints used:
+- Authentication
+- Products
+- Categories
+- User creation
+- Profile data
+
+⚠️ No API keys are required.
+
+---
+
+## 📦 Installation & Setup
 
 Clone the repository:
 
-git clone https://github.com/your-username/shopping-app.git
-
-
-Navigate to the project folder:
-
-cd shopping-app
-
-
-Install dependencies:
-
-npm install
-
-
-Start the development server:
-
-npm start
-
-
-The app should now be running at http://localhost:3000
-.
-
-Usage
-
-Browse products on the home page
-
-Click on a product to view details
-
-Add items to the cart or wishlist
-
-Proceed to checkout to make a payment
-
-Track your orders
-
-Contributing
-
-Contributions are welcome! Please follow these steps:
-
-Fork the repository
-
-Create a new branch (git checkout -b feature-name)
-
-Make your changes
-
-Commit your changes (git commit -m "Add feature")
-
-Push to the branch (git push origin feature-name)
-
-Create a pull request
-
-License
-
-This project is licensed under the MIT License – see the LICENSE
- file for details.
+```bash
+git clone https://github.com/tamar-natchkebia/shopping-app-.git

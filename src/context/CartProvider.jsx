@@ -9,16 +9,16 @@ export default function CartProvider({ children }) {
   // Add product to cart
   const addToCart = (product, quantity = 1, fromWishlist = false) => {
     setCart((prev) => {
-      const existing = prev.find((p) => p.id === product.id);
+      const existing = prev.find((p) => p.id === product.id); // Check if product already in cart
       if (existing) {
-        return prev.map((p) =>
+        return prev.map((p) => //cant directly modify existing as state should be immutable
           p.id === product.id
             ? {
-                ...p,
+                ...p, // return everything, except quantity
                 // ✅ If from wishlist, add exact quantity (no double increment)
                 quantity: fromWishlist
                   ? p.quantity 
-                  : p.quantity ,
+                  : p.quantity+ quantity // Increment quantity
               }
             : p
         );

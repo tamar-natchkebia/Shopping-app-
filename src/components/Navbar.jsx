@@ -5,7 +5,7 @@ import { useWishlist } from "../context/WishlistProvider.jsx";
 
 export default function Navbar() {
   const { user, logout } = useAuth() || {};
-  const { totalCartItems: cartCount = 0 } = useCart() || {}; // ✅ fixed
+  const { totalCartItems: cartCount = 0 } = useCart() || {}; 
   const { wishlist = [] } = useWishlist() || {}; // Wishlist array
 
   const wishlistCount = wishlist.reduce(

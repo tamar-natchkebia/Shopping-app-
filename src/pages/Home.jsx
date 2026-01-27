@@ -28,7 +28,7 @@ export default function Home() {
       } catch (err) {
         console.error("Error fetching categories:", err);
       } finally {
-        setLoading(false);
+        setLoading(false); //Whatever happens, the request is over now. Stop the loader 
       }
     };
     fetchCategories();
@@ -44,8 +44,8 @@ export default function Home() {
       <section className="bg-gradient-to-r from-purple-700 via-purple-500 to-indigo-500 text-white rounded-lg p-10 text-center shadow-lg mb-10">
         <h1 className="text-4xl font-bold mb-4">Discover Your Next Favorite Find</h1>
         <p className="mb-6 text-lg">Shop curated products and explore unique categories.</p>
-        
-        {/* ✅ Only one button now */}
+
+        {/* ✅  Browse Products button  */}
         <Link
           to="/products"
           className="inline-block bg-yellow-400 text-purple-900 px-6 py-3 rounded-full font-semibold hover:bg-yellow-300 transition"
@@ -58,18 +58,18 @@ export default function Home() {
       <section className="mb-12">
         <h2 className="text-2xl font-bold mb-6">Popular Categories</h2>
         {loading ? (
-          <p>Loading categories...</p>
-        ) : categories.length ? (
-          <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-            {categories.slice(0, 8).map((cat) => (
-              <Link
-                key={cat.id}
-                to={`/categories/${cat.id}`} // ✅ Goes to CategoryDetail
+          <p>Loading categories...</p> // Show loading state
+        ) : categories.length ? ( // Check if categories exist
+          <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"> {/* Responsive grid */} 
+            {categories.slice(0, 8).map((cat) => ( // Limit to 8 categories for preview.
+              <Link // Category link
+                key={cat.id} // Unique key for each category
+                to={`/categories/${cat.id}`} //  Goes to CategoryDetail
                 className="bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden group"
               >
                 <img
-                  src={cat.image}
-                  alt={cat.name}
+                  src={cat.image}  // Category image
+                  alt={cat.name} // Alt text for accessibility
                   className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                 />
                 <div className="p-4 text-center">
@@ -78,7 +78,7 @@ export default function Home() {
               </Link>
             ))}
           </div>
-        ) : (
+        ) : ( // Fallback if no categories
           <p>No categories found.</p>
         )}
       </section>
@@ -152,15 +152,15 @@ export default function Home() {
             <p className="text-sm">Landline: (+351) 214 413 631</p>
             <p className="text-sm">Mobile: (+351) 916 158 854</p>
             <p className="text-sm mt-2">
-              Oeiras Parque Store: Shopping Mall Oeiras Parque | Av. António Cabral de Macedo piso 2 loja 2.019
+               Parque Store: Shopping Mall Parque | Av. António Cabral de Macedo piso 2 loja 2.019
             </p>
             <p className="text-sm">Schedule: Every day from 10am to 11pm</p>
             <p className="text-sm mt-2">Emails:</p>
             <ul className="text-sm list-none">
-              <li>Information: info@missus.pt</li>
-              <li>Orders: sales@missus.pt</li>
-              <li>After-sale: hello@missus.pt</li>
-              <li>Partnerships: marketing@missus.pt</li>
+              <li>Information: info@masonmart.pt</li>
+              <li>Orders: sales@masonmart.pt</li>
+              <li>After-sale: hello@masonmart.pt</li>
+              <li>Partnerships: marketing@masonmart.pt</li>
             </ul>
           </div>
 
@@ -178,7 +178,7 @@ export default function Home() {
         </div>
 
         <div className="text-center py-4 text-sm mt-8 border-t border-gray-300">
-          © 2025, Missus - Loving Swimsuits
+          © 2025, Mason Mart - Loving every detail. All rights reserved.
         </div>
       </footer>
     </div>

@@ -6,7 +6,7 @@ import { useCart } from "../context/CartProvider.jsx";
 import { useWishlist } from "../context/WishlistProvider.jsx";
 
 export default function ProductDetail() {
-  const { id } = useParams();
+  const { id } = useParams(); // It reads parameters from the URL. if route is /products/10, then id = 10.
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [quantity, setQuantityInput] = useState(1);
@@ -17,7 +17,9 @@ export default function ProductDetail() {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`https://api.escuelajs.co/api/v1/products/${id}`)
+      .get(`https://api.escuelajs.co/api/v1/products/${id}`) // useParams gives you the id.
+
+// useEffect uses that id to fetch the correct product from the API.
       .then((res) => setProduct(res.data))
       .catch((err) => console.error("Error fetching product:", err))
       .finally(() => setLoading(false));

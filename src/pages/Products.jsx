@@ -2,17 +2,17 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-// The useWishlist hook is no longer needed here
+
 
 // Custom hook to debounce input values
 function useDebounce(value, delay) {
-  const [debouncedValue, setDebouncedValue] = useState(value);
+  const [debouncedValue, setDebouncedValue] = useState(value); // State to hold the debounced value
   useEffect(() => {
     const handler = setTimeout(() => {
-      setDebouncedValue(value);
-    }, delay);
+      setDebouncedValue(value);// runs after delay time has passed
+    }, delay); // Set a timeout to update the debounced value after the specified delay
     return () => {
-      clearTimeout(handler);
+      clearTimeout(handler); // We need to cancel the old timer because if we don’t, we’ll end up running multiple timers for old values — and that causes wrong updates
     };
   }, [value, delay]);
   return debouncedValue;
@@ -53,14 +53,14 @@ export default function Products() {
   // Fetch products on filter change
   useEffect(() => {
     const fetchProducts = async () => {
-      setLoading(true);
+      setLoading(true); // Before fetching products, you want to let the user know the app is busy.
       try {
         const params = {
-          price_min: debouncedPriceRange[0],
+          price_min: debouncedPriceRange[0], // API expects price_min and price_max
           price_max: debouncedPriceRange[1],
         };
-        if (debouncedTitle) params.title = debouncedTitle;
-        if (debouncedCategoryId) params.categoryId = debouncedCategoryId;
+        if (debouncedTitle) params.title = debouncedTitle; //Only add title into params if debouncedTitle actually has something in it
+        if (debouncedCategoryId) params.categoryId = debouncedCategoryId; // Only add categoryId if it's not empty
 
         const res = await axios.get(
           "https://api.escuelajs.co/api/v1/products",
@@ -137,22 +137,22 @@ export default function Products() {
           <div className="md:col-span-10 lg:col-span-3">
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Price Range
-            </label>
-            <div className="relative mt-3 h-8">
-              <div className="absolute top-1/2 h-1 w-full -translate-y-1/2 rounded-full bg-gray-200"></div>
-              <div
+            </label> 
+            <div className="relative mt-3 h-8"> 
+              <div className="absolute top-1/2 h-1 w-full -translate-y-1/2 rounded-full bg-gray-200"></div> 
+              <div background
                 className="absolute top-1/2 h-1 -translate-y-1/2 rounded-full bg-blue-500"
                 style={{
                   left: `${(priceRange[0] / 2000) * 100}%`,
                   right: `${100 - (priceRange[1] / 2000) * 100}%`,
-                }}
+                }} // visual representation of the state.
               ></div>
-              <input
+              <input // update numbers in state.
                 type="range" min="0" max="2000" step="10" value={priceRange[0]}
                 onChange={(e) => {
                   const newMin = Math.min(Number(e.target.value), priceRange[1] - 10);
                   setPriceRange([newMin, priceRange[1]]);
-                }}
+                }} //
                 className={thumbClasses}
               />
               <input
@@ -164,7 +164,7 @@ export default function Products() {
                 className={thumbClasses}
               />
               <div className="absolute -bottom-5 flex w-full justify-between text-xs font-medium text-gray-600">
-                <span>${priceRange[0]}</span>
+                <span>${priceRange[0]}</span> {/* show the same numbers as text, so the user knows exactly what min and max they picked. */}
                 <span>${priceRange[1]}</span>
               </div>
             </div>
@@ -205,7 +205,7 @@ export default function Products() {
               className="group flex flex-col overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-lg"
             >
               <Link
-                to={`/products/${product.id}`}
+                to={`/products/${product.id}`} // To the product details page.
                 className="flex flex-grow flex-col"
               >
                 <img
@@ -225,7 +225,7 @@ export default function Products() {
                   </p>
                 </div>
               </Link>
-              {/* REMOVED: Wishlist button is no longer here */}
+              
             </div>
           ))}
         </div>

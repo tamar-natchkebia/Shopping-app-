@@ -13,9 +13,9 @@ export default function CategoryDetail() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const [catRes, prodRes] = await Promise.all([
+        const [catRes, prodRes] = await Promise.all([ // Parallel requests for efficiency
           axios.get(`https://api.escuelajs.co/api/v1/categories/${id}`),
-          axios.get(`https://api.escuelajs.co/api/v1/products/?categoryId=${id}`)
+          axios.get(`https://api.escuelajs.co/api/v1/products/?categoryId=${id}`) 
         ]);
         setCategory(catRes.data);
         setProducts(prodRes.data || []);
@@ -51,7 +51,7 @@ export default function CategoryDetail() {
           {products.map((product) => (
             <div
               key={product.id}
-              onClick={() => navigate(`/products/${product.id}`)}
+              onClick={() => navigate(`/products/${product.id}`)} // link is better because of SEO, but this is ok for now. 
               className="cursor-pointer bg-white rounded-lg shadow hover:shadow-lg hover:scale-105 transition-transform duration-200 overflow-hidden"
             >
               <img

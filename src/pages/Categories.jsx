@@ -25,7 +25,7 @@ export default function Categories() {
         {categories.map((cat) => (
           <Link
             key={cat.id}
-            to={`/categories/${cat.id}`}
+            to={`/categories/${cat.id}`} //will navigate to category detail page
             className="bg-white rounded-lg shadow hover:shadow-lg hover:scale-105 transition-transform duration-200 overflow-hidden"
           >
             <img
