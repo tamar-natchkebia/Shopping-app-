@@ -2,21 +2,16 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-// Best practice: Move your API base URL to a variable or .env file
 const API_URL = "https://warrior.ge/api";
 
 function Signup() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
-  });
+  const [formData, setFormData] = useState({ name: "", email: "", password: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [isSuccess, setIsSuccess] = useState(false); // New state for success
   
   const navigate = useNavigate();
 
-  // Handle multiple inputs with one function
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -27,91 +22,100 @@ function Signup() {
     setError("");
 
     try {
-      const response = await axios.post(`${API_URL}/register`, {
-        name: formData.name,
-        email: formData.email,
-        password: formData.password,
-      });
+      await axios.post(`${API_URL}/register`, formData);
 
-      if (response.status === 201 || response.status === 200) {
-        alert("Registration successful!");
+      // Trigger the modern success state
+      setIsSuccess(true);
+      
+      // Wait 2 seconds so they can see the message, then redirect
+      setTimeout(() => {
         navigate("/login");
-      }
+      }, 2000);
+
     } catch (err) {
-      // Extract the specific error message from the backend if available
-      const errorMessage = err.response?.data?.message || "Something went wrong. Please try again.";
+      const errorMessage = err.response?.data?.message || "Something went wrong.";
       setError(errorMessage);
-      console.error("Signup Error:", err);
-    } finally {
       setLoading(false);
     }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
-      <div className="bg-white shadow-md rounded-lg p-8 w-full max-w-md">
-        <h1 className="text-3xl font-semibold mb-6 text-center text-gray-800">
-          Sign Up
-        </h1>
+      <div className="bg-white shadow-xl rounded-2xl p-8 w-full max-w-md border border-gray-100">
+        <h1 className="text-3xl font-bold mb-2 text-center text-gray-800">Create Account</h1>
+        <p className="text-center text-gray-500 mb-8">Join the warrior community today.</p>
 
-        {/* Error Alert */}
-        {error && (
-          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded mb-4 text-sm">
-            {error}
+        {/* Modern Success Message */}
+        {isSuccess ? (
+          <div className="flex flex-col items-center justify-center py-8 animate-pulse">
+            <div className="bg-green-100 text-green-700 p-4 rounded-full mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <h2 className="text-xl font-semibold text-gray-800">Registration Successful!</h2>
+            <p className="text-gray-500">Redirecting you to login...</p>
           </div>
+        ) : (
+          /* The Form - only shows if not successful */
+          <form onSubmit={handleSignup} className="flex flex-col gap-4">
+            {error && (
+              <div className="bg-red-50 border-l-4 border-red-500 text-red-700 p-3 rounded text-sm">
+                {error}
+              </div>
+            )}
+
+            <input
+              name="name"
+              type="text"
+              placeholder="Full Name"
+              value={formData.name}
+              onChange={handleChange}
+              className="border border-gray-200 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
+              required
+            />
+            <input
+              name="email"
+              type="email"
+              placeholder="Email Address"
+              value={formData.email}
+              onChange={handleChange}
+              className="border border-gray-200 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
+              required
+            />
+            <input
+              name="password"
+              type="password"
+              placeholder="Password"
+              value={formData.password}
+              onChange={handleChange}
+              className="border border-gray-300 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
+              required
+            />
+            
+            <button
+              type="submit"
+              disabled={loading}
+              className={`py-3 mt-2 rounded-xl font-bold text-white shadow-lg transition-all ${
+                loading ? "bg-purple-400" : "bg-purple-600 hover:bg-purple-700 hover:shadow-purple-200"
+              }`}
+            >
+              {loading ? "Processing..." : "Sign Up"}
+            </button>
+          </form>
         )}
 
-        <form onSubmit={handleSignup} className="flex flex-col gap-4">
-          <input
-            name="name"
-            type="text"
-            placeholder="Name"
-            value={formData.name}
-            onChange={handleChange}
-            className="border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-400"
-            required
-            disabled={loading}
-          />
-          <input
-            name="email"
-            type="email"
-            placeholder="Email"
-            value={formData.email}
-            onChange={handleChange}
-            className="border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-400"
-            required
-            disabled={loading}
-          />
-          <input
-            name="password"
-            type="password"
-            placeholder="Password"
-            value={formData.password}
-            onChange={handleChange}
-            className="border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-400"
-            required
-            disabled={loading}
-          />
-          <button
-            type="submit"
-            disabled={loading}
-            className={`py-2 rounded-md font-semibold text-white transition-colors ${
-              loading ? "bg-purple-400 cursor-not-allowed" : "bg-purple-600 hover:bg-purple-700"
-            }`}
-          >
-            {loading ? "Creating Account..." : "Sign Up"}
-          </button>
-        </form>
-
-        <p className="mt-4 text-sm text-center text-gray-600">
-          Already have an account?{" "}
-          <button
-            onClick={() => navigate("/login")}
-            className="text-purple-600 hover:underline font-medium"
-          >
-            Login
-          </button>
-        </p>
+        {!isSuccess && (
+          <p className="mt-6 text-sm text-center text-gray-600">
+            Already have an account?{" "}
+            <button
+              onClick={() => navigate("/login")}
+              className="text-purple-600 font-bold hover:text-purple-800"
+            >
+              Log in here
+            </button>
+          </p>
+        )}
       </div>
     </div>
   );
