@@ -7,7 +7,7 @@ The app focuses on clean UI, smooth navigation, and a realistic e-commerce exper
 ---
 
 ## 🚀 Live Demo
-👉 https://YOUR-NETLIFY-URL.netlify.app
+👉 https://maisonmart-store.netlify.app/
 
 ---
 
